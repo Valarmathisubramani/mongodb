@@ -1,0 +1,269 @@
+test> use mkecmca
+switched to db mkecmca
+mkecmca> show dbs;
+admin   40.00 KiB
+config  60.00 KiB
+local   72.00 KiB
+mkecmca> db.createCollection('mycol');
+{ ok: 1 }
+mkecmca> db.mycol.insert({name:"azar",age:34,email:"azar@gmail.com",salary:1000});
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("656edb8c16f10d7e0cc8e2c2") }
+}
+mkecmca> db.mycol.insert({name:"valar",age:21,email:"valar@gmail.com",salary:2000});
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("656edc2516f10d7e0cc8e2c3") }
+}
+mkecmca> db.mycol.insert({name:"prabhu",age:30,email:"prabhu@gmail.com",salary:3000});
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("656edc7316f10d7e0cc8e2c4") }
+}
+mkecmca> db.mycol.insertOne({name:"azar1",age:35,email:"azar1@gmail.com",salary:4000});
+{ncaught:
+  acknowledged: true,ated string constant. (1:46)
+  insertedId: ObjectId("656eddf516f10d7e0cc8e2c5")
+} 1 | db.mycol.insertOne({name:"azar1",age:35,email:"azar1@gmail.com,salary:4000});
+mkecmca> db.mycol.insertOne({name:"azar1",age:35,email:"azar1@gmail.com",salary:4000});
+{ 2 |
+  acknowledged: true,
+  insertedId: ObjectId("656ede0b16f10d7e0cc8e2c6")
+}
+mkecmca> db.mycol.find();
+[
+  {
+    _id: ObjectId("656edb8c16f10d7e0cc8e2c2"),
+    name: 'azar',
+    age: 34,
+    email: 'azar@gmail.com',
+    salary: 1000
+  },
+  {
+    _id: ObjectId("656edc2516f10d7e0cc8e2c3"),
+    name: 'valar',
+    age: 21,
+    email: 'valar@gmail.com',
+    salary: 2000
+  },
+  {
+    _id: ObjectId("656edc7316f10d7e0cc8e2c4"),
+    name: 'prabhu',
+    age: 30,
+    email: 'prabhu@gmail.com',
+    salary: 3000
+  },
+  {
+    _id: ObjectId("656eddf516f10d7e0cc8e2c5"),
+    name: 'azar1',
+    age: 35,
+    email: 'azar1@gmail.com',
+    salary: 4000
+  },
+  {
+    _id: ObjectId("656ede0b16f10d7e0cc8e2c6"),
+    name: 'azar1',
+    age: 35,
+    email: 'azar1@gmail.com',
+    salary: 4000
+  }
+]
+mkecmca> db.mycol.insertMany([{name:"azar2",age:36,email:"azar2@gmail.com",salary:2000},{name:"azar3",age:37,email:"azar3@gmail.com",salary:1500}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("656ee13016f10d7e0cc8e2c7"),
+    '1': ObjectId("656ee13016f10d7e0cc8e2c8")
+  }
+}
+mkecmca> db.mycol.find();
+[
+  {
+    _id: ObjectId("656edb8c16f10d7e0cc8e2c2"),
+    name: 'azar',
+    age: 34,
+    email: 'azar@gmail.com',
+    salary: 1000
+  },
+  {
+    _id: ObjectId("656edc2516f10d7e0cc8e2c3"),
+    name: 'valar',
+    age: 21,
+    email: 'valar@gmail.com',
+    salary: 2000
+  },
+  {
+    _id: ObjectId("656edc7316f10d7e0cc8e2c4"),
+    name: 'prabhu',
+    age: 30,
+    email: 'prabhu@gmail.com',
+    salary: 3000
+  },
+  {
+    _id: ObjectId("656eddf516f10d7e0cc8e2c5"),
+    name: 'azar1',
+    age: 35,
+    email: 'azar1@gmail.com',
+    salary: 4000
+  },
+  {
+    _id: ObjectId("656ede0b16f10d7e0cc8e2c6"),
+    name: 'azar1',
+    age: 35,
+    email: 'azar1@gmail.com',
+    salary: 4000
+  },
+  {
+    _id: ObjectId("656ee13016f10d7e0cc8e2c7"),
+    name: 'azar2',
+    age: 36,
+    email: 'azar2@gmail.com',
+    salary: 2000
+  },
+  {
+    _id: ObjectId("656ee13016f10d7e0cc8e2c8"),
+    name: 'azar3',
+    age: 37,
+    email: 'azar3@gmail.com',
+    salary: 1500
+  }
+]
+mkecmca> show dbs;
+admin     40.00 KiB
+config   108.00 KiB
+local     72.00 KiB
+mkecmca   72.00 KiB
+mkecmca> db.mycol.find({name:"azar1"})
+[
+  {
+    _id: ObjectId("656eddf516f10d7e0cc8e2c5"),
+    name: 'azar1',
+    age: 35,
+    email: 'azar1@gmail.com',
+    salary: 4000
+  },
+  {
+    _id: ObjectId("656ede0b16f10d7e0cc8e2c6"),
+    name: 'azar1',
+    age: 35,
+    email: 'azar1@gmail.com',
+    salary: 4000
+  }
+]
+mkecmca> db.mycol.find({salary:1500})
+[
+  {
+    _id: ObjectId("656ee13016f10d7e0cc8e2c8"),
+    name: 'azar3',
+    age: 37,
+    email: 'azar3@gmail.com',
+    salary: 1500
+  }
+]
+mkecmca> db.mycol.find({name:"azar3",salary:1500})
+[
+  {
+    _id: ObjectId("656ee13016f10d7e0cc8e2c8"),
+    name: 'azar3',
+    age: 37,
+    email: 'azar3@gmail.com',
+    salary: 1500
+  }
+]
+mkecmca> db.mycol.find({name:"azar1",age:35})
+[
+  {
+    _id: ObjectId("656eddf516f10d7e0cc8e2c5"),
+    name: 'azar1',
+    age: 35,
+    email: 'azar1@gmail.com',
+    salary: 4000
+  },
+  {
+    _id: ObjectId("656ede0b16f10d7e0cc8e2c6"),
+    name: 'azar1',
+    age: 35,
+    email: 'azar1@gmail.com',
+    salary: 4000
+  }
+]
+mkecmca> db.mycol.find({name:"azar2",email:"azar2@gmail.com"})
+[
+  {
+    _id: ObjectId("656ee13016f10d7e0cc8e2c7"),
+    name: 'azar2',
+    age: 36,
+    email: 'azar2@gmail.com',
+    salary: 2000
+  }
+]
+mkecmca> db.mycol.find({name:"azar3",salary:1500},{name:"azar2",salary:2000})
+[
+  {
+    _id: ObjectId("656ee13016f10d7e0cc8e2c8"),
+    salary: 1500,
+    name: 'azar2'
+  }
+]
+mkecmca> db.mycol.find({name:"azar2",salary:2000},{name:"azar3",salary:1500})
+[
+  {
+    _id: ObjectId("656ee13016f10d7e0cc8e2c7"),
+    salary: 2000,
+    name: 'azar3'
+  }
+]
+mkecmca> db.mycol.find({$or:[{name:"azar7"},{salary:1500}]})
+[
+  {
+    _id: ObjectId("656ee13016f10d7e0cc8e2c8"),
+    name: 'azar3',
+    age: 37,
+    email: 'azar3@gmail.com',
+    salary: 1500
+  }
+]
+mkecmca> db.mycol.find({salary:{$in:[1500,2000]}})
+[
+  {
+    _id: ObjectId("656edc2516f10d7e0cc8e2c3"),
+    name: 'valar',
+    age: 21,
+    email: 'valar@gmail.com',
+    salary: 2000
+  },
+  {
+    _id: ObjectId("656ee13016f10d7e0cc8e2c7"),
+    name: 'azar2',
+    age: 36,
+    email: 'azar2@gmail.com',
+    salary: 2000
+  },
+  {
+    _id: ObjectId("656ee13016f10d7e0cc8e2c8"),
+    name: 'azar3',
+    age: 37,
+    email: 'azar3@gmail.com',
+    salary: 1500
+  }
+]
+
+mkecmca> db.mycol.find({name:"azar"},{age:0},{salary:1})
+[
+  {
+    _id: ObjectId("656edb8c16f10d7e0cc8e2c2"),
+    name: 'azar',
+    email: 'azar@gmail.com',
+    salary: 1000
+  }
+]
+mkecmca> db.mycol.find({name:"azar"},{age:1},{salary:0})
+[ { _id: ObjectId("656edb8c16f10d7e0cc8e2c2"), age: 34 } ]
+mkecmca> db.createCollection('mycol1');
+{ ok: 1 }ObjectId("656edb8c16f10d7e0cc8e2c2"), age: 34 } ]
+mkecmca> db.mycol1.insertOne({_id:1001,name:"azar1",age:34,salary:1000})
+{ acknowledged: true, insertedId: 1001 }2c2"),
+mkecmca> db.mycol1.find();
+[ { _id: 1001, name: 'azar1', age: 34, salary: 1000 } ]
